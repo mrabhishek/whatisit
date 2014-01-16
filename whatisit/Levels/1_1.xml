@@ -1,0 +1,9 @@
+<map>
+    <layer name="settings">
+        <environment gravity="-10" />
+    </layer>
+    <layer name="objects">
+        <target shape="circle" x="0.777415" y="0.844654" points="0" type="kinematic" die="1" />
+        <player shape="circle" x="0.398337" y="0.073125" points="0" type="dynamic" die="0" />
+    </layer>
+</map>
