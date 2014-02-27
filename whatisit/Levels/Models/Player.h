@@ -8,8 +8,7 @@
 
 #import "AbstractModel.h"
 
-@interface TargetCircle : AbstractModel
+@interface Player : AbstractModel
 
-@property CGPoint position;
 
 @end

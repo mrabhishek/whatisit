@@ -24,6 +24,16 @@ enum {
 
 @implementation GameLayer
 
+class BodyDetail
+{
+public:
+    bool m_shouldDie;
+    
+    BodyDetail(bool shouldDie)
+    {
+        m_shouldDie = shouldDie;
+    }
+};
 
 -(id) init
 {
@@ -31,9 +41,16 @@ enum {
 		
 		// enable events
         
+        //[self initWithColor:ccc4(255,255, 255, 255) fadingTo:ccc4(255, 255, 255, 255)];
+        m_dMultiplier = 1;
 		self.isTouchEnabled = YES;
 		self.isAccelerometerEnabled = YES;
 		m_windowSize = [CCDirector sharedDirector].winSize;
+        
+        if(m_windowSize.height > 500)
+        {
+            m_dMultiplier = 1.75f;
+        }
 		
 		// init physics
 		[self initPhysics];
@@ -55,15 +72,17 @@ enum {
 
 -(void) setGameLevel:(LevelFileHandler*)levelfile Sender:(id)sender
 {
-    _levelFile = levelfile;
+    //_levelFile = levelfile;
     
     //once the level is set the game can be setup accordingly
     
-    [self setupGame];
+    [self setupGame:levelfile];
 }
 
 -(void) dealloc
 {
+    delete _contactListener;
+    _contactListener = NULL;
     delete m_world;
     m_world = NULL;
 
@@ -80,11 +99,11 @@ enum {
     [self setupBoundaries];
 }
 
--(void) setupGame
+-(void) setupGame :(LevelFileHandler*) levelfile
 {
-    [self setupBall];
-    [self setupObstacles];
-    [self setupTarget];
+    [self setupTarget:levelfile.target];
+    [self setupPlayer:levelfile.player];
+    [self setupObstacles:levelfile.obstacles];
 }
 
 -(void) setupWorld
@@ -93,6 +112,10 @@ enum {
     b2Vec2 gravity;
     gravity.Set(0, -20.0f);
     m_world = new b2World(gravity);
+    
+    // Create contact listener
+    _contactListener = new MyContactListener();
+    m_world->SetContactListener(_contactListener);
     
     m_world->SetAllowSleeping(true);
     m_world->SetContinuousPhysics(true);
@@ -119,109 +142,193 @@ enum {
     m_debugDraw->SetFlags(flags);
 }
 
+-(void) resetGameBodies
+{
+    //loop through bodies of the world
+    //delete them all
+    std::vector<b2Body *>toDestroy;
+    for (b2Body* b = m_world->GetBodyList(); b; b = b->GetNext())
+    {
+        if (b != m_boundary && b!= m_groundBody)
+        {
+            toDestroy.push_back(b);
+        }
+    }
+    
+    std::vector<b2Body *>::iterator pos2;
+    for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2) {
+        b2Body *body = *pos2;
+        m_world->DestroyBody(body);
+    }
+}
+
 -(void)setupBoundaries
 {
     b2BodyDef bd;
-    b2Body* ground = m_world->CreateBody(&bd);
-    //bottom wall
+    m_boundary = m_world->CreateBody(&bd);
+    
+    //bottom 1 wall
     {
         b2EdgeShape shape;
         shape.Set(b2Vec2(_X(0.0f), _X(0.0f)), b2Vec2(_X(m_windowSize.width), _X(0.0f)));
-        ground->CreateFixture(&shape, 0.0f);
+        m_boundary->CreateFixture(&shape, 0.0f);
+    }
+    
+    //bottom 2 wall
+    {
+        b2EdgeShape shape;
+        shape.Set(b2Vec2(_X(0.0f), _X(m_windowSize.height*0.025)), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height*0.025)));
+        m_boundary->CreateFixture(&shape, 0.0f);
     }
     
     //left wall
     {
         b2EdgeShape shape;
         shape.Set(b2Vec2(_X(0.0f), _X(0.0f)), b2Vec2(_X(0.0f), _X(m_windowSize.height)));
-        ground->CreateFixture(&shape, 0.0f);
+        m_boundary->CreateFixture(&shape, 0.0f);
     }
     
     //top wall
     {
         b2EdgeShape shape;
         shape.Set(b2Vec2(_X(0.0f), _X(m_windowSize.height)), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height)));
-        ground->CreateFixture(&shape, 0.0f);
+        m_boundary->CreateFixture(&shape, 0.0f);
     }
     
     //right wall
     {
         b2EdgeShape shape;
         shape.Set(b2Vec2(_X(m_windowSize.width), 0.0f), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height)));
-        ground->CreateFixture(&shape, 0.0f);
+        m_boundary->CreateFixture(&shape, 0.0f);
     }
 }
 
 
--(void)setupBall
+-(void)setupPlayer:(Player*)player
 {
-    [self setupSphere:b2_dynamicBody :25 :m_windowSize.width/2 :0];
+    m_player = [self setupbox2DBody:player];
 }
 
--(void)setupObstacles
+-(void)setupObstacles :(NSMutableArray*) obstaclces
 {
-    [self setupPlusShapedWedge:0.250f*m_windowSize.width :0.50f*m_windowSize.height];
-    [self setupPlusShapedWedge:0.60f*m_windowSize.width :0.70f*m_windowSize.height];
-}
-
--(void)setupTarget
-{
-    [self setupSphere: b2_kinematicBody:30 :RandomFloat(15.0f, m_windowSize.width-15.0f)
-                     :RandomFloat(15.0f, m_windowSize.height-15.0f)];
-}
-
-
--(void)setupPlusShapedWedge :(float) centerAtX : (float) centerAtY
-{
-    [self setupHorizontalWedge:centerAtX :centerAtY];
-    [self setupVerticalWedge:centerAtX :centerAtY];
-}
-
--(void)setupHorizontalWedge :(float) centerAtX : (float) centerAtY
-{
-    [self setupBox:b2_kinematicBody :40 :10 :centerAtX :centerAtY];
-}
-
--(void)setupVerticalWedge :(float) centerAtX : (float) centerAtY
-{
-    [self setupBox:b2_kinematicBody :10 :40 :centerAtX :centerAtY];
-}
-
--(void)setupBox :(b2BodyType) ofBodyType :(float) ofWidth :(float)ofHeight
-                :(float) centerAtX :(float) centerAtY
-{
+    for(Obstacle* obstacle in obstaclces)
     {
-        b2BodyDef bd;
-        bd.type = ofBodyType;
-        bd.position.Set(_X(centerAtX),_X(centerAtY));
-        b2Body* ground = m_world->CreateBody(&bd);
-        
-        b2PolygonShape shape;
-        shape.SetAsBox(_X(ofWidth), _X(ofHeight));
-        ground->CreateFixture(&shape, 0.0f);
+        [self setupbox2DBody:obstacle];
     }
 }
 
-
--(void)setupSphere :(b2BodyType) ofBodyType : (float) ofRadius : (float) centerAtX : (float) centerAtY
+-(void)setupTarget :(Target*)target
 {
-    {
-        b2CircleShape shape;
-        shape.m_radius = _X(ofRadius);
-        
-        b2FixtureDef fd;
-        fd.shape = &shape;
-        fd.density = 1.0f;
+    m_target = [self setupbox2DBody:target];
+}
+
+-(b2Body*)setupbox2DBody:(AbstractModel*)model
+{
+    switch (model.shape) {
+        case circle:
+            return [self setupSphere:model:kCircleRadius];
+            break;
+        case plus_small:
+        case plus:
+            return [self setupPlusShapedWedge:model];
+            break;
+        case hwall_half:
+            return [self setupBox:model.bodyType :0.25*m_windowSize.width :kHorizontalWallHeight :model.Position];
+            break;
+        case vwall_half:
+            return [self setupBox:model.bodyType :kVerticalWallWidth :0.25*m_windowSize.height :model.Position];
+            break;
+        default:
+            return NULL;
+            break;
+    }
+}
+
+-(b2Body*)setupPlusShapedWedge :(AbstractModel*) model
+{
+    float width = kPlusWidth;
+    float height = kPlusHeight;
     
-        b2BodyDef bd;
-        bd.type = ofBodyType;
-        bd.position.Set(_X(centerAtX) , _X(centerAtY));
-            
-        b2Body* body = m_world->CreateBody(&bd);
-            
-        fd.restitution = 0.80f;
-        body->CreateFixture(&fd);
+    switch (model.shape) {
+        case plus:
+            width = kPlusWidth;
+            height = kPlusHeight;
+            break;
+        case plus_small:
+            width = kPlusWidthSmall;
+            height = kPlusHeightSmall;
+            break;
+        default:
+            break;
     }
+    
+    BodyDetail* detail = new BodyDetail(model.die);
+    
+    return [self setupPlus:model.bodyType :width :height :model.Position:detail];
+}
+
+
+-(b2Body*)setupPlus :(b2BodyType) ofBodyType :(float) ofWidth :(float)ofHeight
+                 :(CGPoint) position :(BodyDetail*) detail
+{
+    b2BodyDef bd;
+    bd.type = ofBodyType;
+    bd.position.Set(_X(position.x),_X(position.y));
+    b2Body* ground = m_world->CreateBody(&bd);
+    
+    b2PolygonShape shape;
+    shape.SetAsBox(_X(ofWidth*m_dMultiplier), _X(ofHeight*m_dMultiplier));
+    ground->CreateFixture(&shape, 0.0f);
+    
+    b2PolygonShape shape2;
+    shape2.SetAsBox(_X(ofHeight*m_dMultiplier), _X(ofWidth*m_dMultiplier));
+    ground->CreateFixture(&shape2, 0.0f);
+    
+    ground->SetUserData(detail);
+    
+    return ground;
+}
+
+-(b2Body*)setupBox :(b2BodyType) ofBodyType :(float) ofWidth :(float)ofHeight
+                   :(CGPoint) position
+{
+    
+    b2BodyDef bd;
+    bd.type = ofBodyType;
+    bd.position.Set(_X(position.x),_X(position.y));
+    b2Body* ground = m_world->CreateBody(&bd);
+    
+    b2PolygonShape shape;
+    shape.SetAsBox(_X(ofWidth), _X(ofHeight));
+    ground->CreateFixture(&shape, 0.0f);
+    
+    return ground;
+}
+
+
+-(b2Body*)setupSphere :(AbstractModel*) model :(float) ofRadius
+{
+    b2CircleShape shape;
+    shape.m_radius = _X(ofRadius*m_dMultiplier);
+    
+    b2FixtureDef fd;
+    fd.shape = &shape;
+    fd.density = 1.0f;
+    
+    b2BodyDef bd;
+    bd.type = model.bodyType;
+    bd.position.Set(_X(model.Position.x) , _X(model.Position.y));
+    
+    b2Body* body = m_world->CreateBody(&bd);
+    
+    fd.restitution = kBallRestitution;
+    body->CreateFixture(&fd);
+    
+    BodyDetail* detail = new BodyDetail(model.die);
+    
+    body->SetUserData(detail);
+    
+    return body;
 }
 
 -(void) draw
@@ -243,10 +350,9 @@ enum {
 	kmGLPopMatrix();
 }
 
-
-
--(void) updateView: (ccTime) dt
+-(ResultType) updateView: (ccTime) dt
 {
+    ResultType result = noResult;
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
@@ -259,6 +365,49 @@ enum {
 	// generally best to keep the time step and iterations fixed.
     
 	m_world->Step(dt, velocityIterations, positionIterations);
+    
+    //Contact logic
+    
+    std::vector<b2Body *>toDestroy;
+    std::vector<MyContact>::iterator pos;
+    for(pos = _contactListener->_contacts.begin();
+        pos != _contactListener->_contacts.end(); ++pos) {
+        MyContact contact = *pos;
+        
+        b2Body *bodyA = contact.fixtureA->GetBody();
+        b2Body *bodyB = contact.fixtureB->GetBody();
+        if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
+            BodyDetail* detailA = (BodyDetail *) bodyA->GetUserData();
+            BodyDetail* detailB = (BodyDetail *) bodyB->GetUserData();
+            
+            if(detailA->m_shouldDie)
+            {
+                toDestroy.push_back(bodyA);
+            }
+            
+            if(detailB->m_shouldDie)
+            {
+                toDestroy.push_back(bodyB);
+            }
+            
+            if(bodyA == m_target || bodyB == m_target)
+            {
+                //if target is hit destroy the player
+                //and fire a level complete event.
+                result = levelComplete;
+                //toDestroy.push_back(m_player);
+            }
+        }
+    }
+    
+    std::vector<b2Body *>::iterator pos2;
+    for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2) {
+        b2Body *body = *pos2;
+        m_world->DestroyBody(body);
+    }
+    
+    return result;
+    
 }
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

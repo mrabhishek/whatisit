@@ -12,6 +12,7 @@
 #import "cocos2d.h"
 
 //local classes
+#import "ApplicationConstants.h"
 #import "GameController.h"
 #import "MainMenuController.h"
 #import "AppStoreController.h"
@@ -19,9 +20,11 @@
 #import "OverlayMenu.h"
 #import "MainMenu.h"
 #import "Level.h"
+#import "LevelMenu.h"
+#import "LevelCompletion.h"
 
 //change to inherit nsobject
-@interface SceneController : NSObject<HudDelegate,OverlayMenuDelegate,MainMenuDelegate,AppStoreDelegate>
+@interface SceneController : NSObject<HudDelegate,OverlayMenuDelegate,MainMenuDelegate,AppStoreDelegate,LevelMenuDelegate,LevelCompletionDelegate>
 {
     Hud * _hud;
     OverlayMenu *_overlayMenu;
@@ -29,6 +32,8 @@
     GameController *_gameController;
     AppStoreController *_appStoreController;
     CCScene *_currentScene;
+    LevelMenu *_levelMenu;
+    LevelCompletion *_levelCompletion;
 }
 
 -(CCScene*) getCurrentScene;

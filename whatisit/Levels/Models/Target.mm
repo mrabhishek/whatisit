@@ -6,9 +6,9 @@
 //
 //
 
-#import "TargetPlusShape.h"
+#import "Target.h"
 
-@implementation TargetPlusShape
+@implementation Target
 
 -(id)init {
     self = [super init];

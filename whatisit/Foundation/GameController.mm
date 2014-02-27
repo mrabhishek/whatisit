@@ -8,6 +8,7 @@
 
 #import "GameController.h"
 #import "LevelFileHandler.h"
+#import "LevelMenu.h"
 
 @implementation GameController
 
@@ -15,9 +16,9 @@
 {
 	if(self = [super init])
     {
+        _gameResult =noResult;
         _gameView = gv;
         [self addChild:_gameView];
-        
         [self scheduleUpdate];
     }
 	return self;
@@ -47,12 +48,39 @@
 
 -(void) update: (ccTime) dt
 {
-    [_gameView updateView:dt];
+    //if there is already a result
+    //don't keep updating the view.
+    if(_gameResult == noResult)
+    {
+        _gameResult = [_gameView updateView:dt];
+        
+        switch (_gameResult) {
+            case levelComplete:
+                [self levelComplete:self];
+                break;
+            case levelFailed:
+                [self levelFailed:self];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+-(void)levelComplete :(id)sender
+{
+    _lastCompletedLevel = _currentLevel;
+    [_levelCompletion.delegate levelComplete:self];
+}
+
+-(void)levelFailed :(id)sender
+{
+    [_levelCompletion.delegate levelFailed:self];
 }
 
 -(Level*)getDefaultLEvel
 {
-    return [[Level alloc]initWithEpisode:1 :3];
+    return [[Level alloc]initWithEpisode:1 :1];
 }
 
 -(LevelFileHandler*)getLevelFileForLevel : (Level*)level
@@ -65,7 +93,7 @@
 
 -(bool)SetNextGameLevel
 {
-    Level *level = [self getLastPlayedGameLevel];
+    Level *level = [self getLastCompletedGameLevel];
     //TODO get next level from here
     //Need to do the max check, If user completed all
     //available levels do something!!
@@ -76,6 +104,15 @@
     if(level == nil)
     {
         level = [self getDefaultLEvel];
+    }
+    else
+    {
+        level = [Level getNext:level];
+    }
+    
+    if(level == nil)
+    {
+        return NO;
     }
     
     return [self setGameLevel:level];
@@ -88,16 +125,21 @@
     //for this level
     //this should create the target and obstacles etc
     [_gameView setGameLevel:[self getLevelFileForLevel:level] Sender:self];
+    _gameResult = noResult;
+    _currentLevel =level;
     
     return YES; //
 }
 
--(Level*)getLastPlayedGameLevel
+-(Level*)getLastCompletedGameLevel
 {
-    //TODO change this to retrieve from saved level information
-    return [[Level alloc]initWithEpisode:1 :1];
+    return _lastCompletedLevel;
 }
 
+-(void)resetGameBodies
+{
+    [_gameView resetGameBodies];
+}
 //for testing purposes
 - (id) retain
 {

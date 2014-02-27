@@ -8,8 +8,7 @@
 
 #import "AbstractModel.h"
 
-@interface TargetPlusShape : AbstractModel
+@interface Target : AbstractModel
 
-@property CGPoint position;
 
 @end

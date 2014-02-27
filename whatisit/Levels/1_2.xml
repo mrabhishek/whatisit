@@ -4,7 +4,7 @@
     </layer>
     <layer name="objects">
         <target shape="circle" x="0.278216" y="0.735322" points="0" type="kinematic" die="1" />
-        <hwall_half shape="hwedge" x="0.332031" y="0.425347" points="0" type="kinematic" die="0" />
+        <object shape="hwall_half" x="0.332031" y="0.425347" points="0" type="kinematic" die="0" />
         <player shape="circle" x="0.424511" y="0.0733178" points="0" type="dynamic" die="0" />
     </layer>
 </map>

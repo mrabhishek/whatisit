@@ -19,4 +19,29 @@
     return self;
 }
 
++(Level*)getNext:(Level*)level
+{
+    if(level == nil)
+    {
+        return [[Level alloc]initWithEpisode:1 :1];
+    }
+    else
+    {
+        if(level.levelNum >= kLevelsPerEpisode)
+        {
+            if(kTotalNumberOfEpisodes < ++level.episode)
+            {
+                return nil;
+            }
+            level.levelNum =1;
+        }
+        else
+        {
+            level.levelNum++;
+        }
+    }
+    
+    return level;
+}
+
 @end

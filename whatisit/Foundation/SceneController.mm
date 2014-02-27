@@ -10,9 +10,6 @@
 
 #import "SceneController.h"
 
-#define TAG_HUD  201
-#define TAG_OVERLAY_MENU 301
-
 @interface SceneController()
 
 @end
@@ -103,10 +100,17 @@
         _overlayMenu = [[OverlayMenu alloc] init];
         _overlayMenu.delegate = self;
         
+        _levelMenu = [[LevelMenu alloc]init];
+        _levelMenu.delegate = self;
+        
+        _levelCompletion = [[LevelCompletion alloc]init];
+        _levelCompletion.delegate = self;
+        
         //autorealese because gamecontroller will own it
         //by adding it as a child
         GameLayer * gameLayer = [[[GameLayer alloc]init] autorelease];
         _gameController = [[GameController alloc] initWithGameView:gameLayer];
+        _gameController.levelCompletion = _levelCompletion;
         [_gameController addChild:_hud z:1 tag:TAG_HUD];
         [_gameController SetNextGameLevel];
     }
@@ -184,21 +188,20 @@
     [self setupMenuScene];
     [self setCurrentScene:_mainMenuController];
     [self pushCurrentScene];
-    
-    
 }
+
 
 -(void)levelComplete :(id)sender
 {
     //TODO Add the level complete screen
     //with option of going to previous/next level
-    
-    /*if(_gameController != nil)
+    //[NSThread sleepForTimeInterval:0.2];
+    if(_gameController != nil)
     {
-        [_gameController pauseGame:self];
+        [_gameController resetGameBodies];
         [_gameController removeChildByTag:TAG_HUD cleanup:NO];
-        [_gameController addChild:_overlayMenu z:1 tag:TAG_OVERLAY_MENU];
-    }*/
+        [_gameController addChild:_levelMenu z:1 tag:TAG_LEVEL_MENU];
+    }
 }
 
 -(void)levelFailed :(id)sender
@@ -206,50 +209,44 @@
     //TODO Add the level fail screen
     //with option of going to previous/next level
     
-    /*if(_gameController != nil)
+    if(_gameController != nil)
     {
-        [_gameController pauseGame:self];
+        [_gameController resetGameBodies];
         [_gameController removeChildByTag:TAG_HUD cleanup:NO];
-        [_gameController addChild:_overlayMenu z:1 tag:TAG_OVERLAY_MENU];
+        [_gameController addChild:_levelMenu z:1 tag:TAG_LEVEL_MENU];
     }
-     */
+    
 }
 
 //overlay menu delegate method
 -(void) didPressNextLevel:(id)sender
 {
-    //TODO setup next level
-    
-    /*if(_gameController != nil)
+    if(_gameController != nil)
     {
-        [_gameController resumeGame:self];
-        [_gameController removeChildByTag:TAG_OVERLAY_MENU cleanup:NO];
+        [_gameController removeChildByTag:TAG_LEVEL_MENU cleanup:NO];
         [_gameController addChild:_hud z:1 tag:TAG_HUD];
-    }*/
+        [_gameController SetNextGameLevel];
+    }
 }
 
 //overlay menu delegate method
--(void) didPressPreviousLevel:(id)sender
+-(void) didPressReplay:(id)sender
+{
+    if(_gameController != nil)
+    {
+        [_gameController removeChildByTag:TAG_LEVEL_MENU cleanup:NO];
+        [_gameController addChild:_hud z:1 tag:TAG_HUD];
+    }
+}
+
+//overlay menu delegate method
+-(void) didPressMainMenuFromLevelMenu:(id)sender
 {
     //TODO setup previous level on the game
-    /*if(_gameController != nil)
+    if(_gameController != nil)
     {
-        [_gameController resumeGame:self];
-        [_gameController removeChildByTag:TAG_OVERLAY_MENU cleanup:NO];
-        [_gameController addChild:_hud z:1 tag:TAG_HUD];
-    }*/
-}
-
-//overlay menu delegate method
--(void) didPressSameLevel:(id)sender
-{
-    //TODO setup same level on the game
-    /*if(_gameController != nil)
-     {
-     [_gameController resumeGame:self];
-     [_gameController removeChildByTag:TAG_OVERLAY_MENU cleanup:NO];
-     [_gameController addChild:_hud z:1 tag:TAG_HUD];
-     }*/
+        [_gameController removeChildByTag:TAG_LEVEL_MENU cleanup:NO];
+    }
 }
 
 //app store delegae

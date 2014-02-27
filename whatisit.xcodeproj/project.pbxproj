@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA2D16BD1888E89D00F61DD3 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4363D21879299900544722 /* libxml2.dylib */; };
 		FA4363CE1879209A00544722 /* CoordinateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363CD1879209A00544722 /* CoordinateHelper.m */; };
 		FA4363D11879233E00544722 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363D01879233E00544722 /* GDataXMLNode.m */; };
-		FA4363D31879299900544722 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4363D21879299900544722 /* libxml2.dylib */; };
 		FA4363D618792C5F00544722 /* FileHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363D518792C5F00544722 /* FileHelper.m */; };
-		FA4363DC187930A500544722 /* TargetCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363DB187930A500544722 /* TargetCircle.m */; };
-		FA4363DF1879311200544722 /* TargetPlusShape.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363DE1879311200544722 /* TargetPlusShape.m */; };
-		FA4363E31879321200544722 /* LevelFileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363E21879321200544722 /* LevelFileHandler.m */; };
-		FA4363E6187946E900544722 /* AbstractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4363E5187946E900544722 /* AbstractModel.m */; };
+		FA4363DC187930A500544722 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363DB187930A500544722 /* Player.mm */; };
+		FA4363DF1879311200544722 /* Target.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363DE1879311200544722 /* Target.mm */; };
+		FA4363E31879321200544722 /* LevelFileHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363E21879321200544722 /* LevelFileHandler.mm */; };
+		FA4363E6187946E900544722 /* AbstractModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363E5187946E900544722 /* AbstractModel.mm */; };
 		FA4363F41879530A00544722 /* ep1_lvl1.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA4363F31879530900544722 /* ep1_lvl1.xml */; };
 		FA4363F818839D8900544722 /* 1_3.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA4363F518839D8900544722 /* 1_3.xml */; };
 		FA4363F918839D8900544722 /* 1_2.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA4363F618839D8900544722 /* 1_2.xml */; };
@@ -221,6 +221,11 @@
 		FA9E93C51833412A0097EBDB /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = FA9E93C11833412A0097EBDB /* tile.png */; };
 		FA9E93C61833412A0097EBDB /* tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA9E93C21833412A0097EBDB /* tile@2x.png */; };
 		FA9E93CA183860F90097EBDB /* Comic_Andy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA9E93C9183860F90097EBDB /* Comic_Andy.ttf */; };
+		FACC3D53188BCED000640560 /* Obstacle.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACC3D52188BCED000640560 /* Obstacle.mm */; };
+		FACC3D56188BDA0E00640560 /* box2DHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACC3D55188BDA0E00640560 /* box2DHelper.mm */; };
+		FACC3D59188CAA3E00640560 /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACC3D58188CAA3E00640560 /* MyContactListener.mm */; };
+		FACC3D5C188E041500640560 /* LevelMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACC3D5B188E041500640560 /* LevelMenu.mm */; };
+		FACC3D5F188E242E00640560 /* LevelCompletion.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACC3D5E188E242E00640560 /* LevelCompletion.mm */; };
 		FAE1CEF41870F9BF00F80605 /* Ball.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAE1CEF31870F9BF00F80605 /* Ball.mm */; };
 /* End PBXBuildFile section */
 
@@ -233,13 +238,13 @@
 		FA4363D418792C5F00544722 /* FileHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHelper.h; sourceTree = "<group>"; };
 		FA4363D518792C5F00544722 /* FileHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHelper.m; sourceTree = "<group>"; };
 		FA4363D718792D2700544722 /* AbstractModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractModel.h; sourceTree = "<group>"; };
-		FA4363DA187930A500544722 /* TargetCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TargetCircle.h; sourceTree = "<group>"; };
-		FA4363DB187930A500544722 /* TargetCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetCircle.m; sourceTree = "<group>"; };
-		FA4363DD1879311200544722 /* TargetPlusShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TargetPlusShape.h; sourceTree = "<group>"; };
-		FA4363DE1879311200544722 /* TargetPlusShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetPlusShape.m; sourceTree = "<group>"; };
+		FA4363DA187930A500544722 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		FA4363DB187930A500544722 /* Player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Player.mm; sourceTree = "<group>"; };
+		FA4363DD1879311200544722 /* Target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Target.h; sourceTree = "<group>"; };
+		FA4363DE1879311200544722 /* Target.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Target.mm; sourceTree = "<group>"; };
 		FA4363E11879321200544722 /* LevelFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelFileHandler.h; sourceTree = "<group>"; };
-		FA4363E21879321200544722 /* LevelFileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelFileHandler.m; sourceTree = "<group>"; };
-		FA4363E5187946E900544722 /* AbstractModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractModel.m; sourceTree = "<group>"; };
+		FA4363E21879321200544722 /* LevelFileHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelFileHandler.mm; sourceTree = "<group>"; };
+		FA4363E5187946E900544722 /* AbstractModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractModel.mm; sourceTree = "<group>"; };
 		FA4363F31879530900544722 /* ep1_lvl1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ep1_lvl1.xml; sourceTree = "<group>"; };
 		FA4363F518839D8900544722 /* 1_3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 1_3.xml; sourceTree = "<group>"; };
 		FA4363F618839D8900544722 /* 1_2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 1_2.xml; sourceTree = "<group>"; };
@@ -653,6 +658,16 @@
 		FA9E93C9183860F90097EBDB /* Comic_Andy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comic_Andy.ttf; sourceTree = "<group>"; };
 		FAC7FEA618596E5100BAEDE7 /* BodyTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyTypes.h; sourceTree = "<group>"; };
 		FAC7FEA718596FD600BAEDE7 /* VaryingRestitution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaryingRestitution.h; sourceTree = "<group>"; };
+		FACC3D51188BCED000640560 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
+		FACC3D52188BCED000640560 /* Obstacle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Obstacle.mm; sourceTree = "<group>"; };
+		FACC3D54188BDA0E00640560 /* box2DHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = box2DHelper.h; sourceTree = "<group>"; };
+		FACC3D55188BDA0E00640560 /* box2DHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = box2DHelper.mm; sourceTree = "<group>"; };
+		FACC3D57188CAA3E00640560 /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyContactListener.h; path = Utilities/MyContactListener.h; sourceTree = "<group>"; };
+		FACC3D58188CAA3E00640560 /* MyContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyContactListener.mm; path = Utilities/MyContactListener.mm; sourceTree = "<group>"; };
+		FACC3D5A188E041500640560 /* LevelMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMenu.h; sourceTree = "<group>"; };
+		FACC3D5B188E041500640560 /* LevelMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelMenu.mm; sourceTree = "<group>"; };
+		FACC3D5D188E242E00640560 /* LevelCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCompletion.h; sourceTree = "<group>"; };
+		FACC3D5E188E242E00640560 /* LevelCompletion.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelCompletion.mm; sourceTree = "<group>"; };
 		FAE1CEF21870F9BF00F80605 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball.h; sourceTree = "<group>"; };
 		FAE1CEF31870F9BF00F80605 /* Ball.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Ball.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -662,7 +677,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA4363D31879299900544722 /* libxml2.dylib in Frameworks */,
+				FA2D16BD1888E89D00F61DD3 /* libxml2.dylib in Frameworks */,
 				FA9E93A41833327A0097EBDB /* SystemConfiguration.framework in Frameworks */,
 				FA9E93A21833326E0097EBDB /* StoreKit.framework in Frameworks */,
 				FA9E913F18332F790097EBDB /* QuartzCore.framework in Frameworks */,
@@ -687,8 +702,12 @@
 				FA4363CD1879209A00544722 /* CoordinateHelper.m */,
 				FA4363CF1879233E00544722 /* GDataXMLNode.h */,
 				FA4363D01879233E00544722 /* GDataXMLNode.m */,
+				FACC3D57188CAA3E00640560 /* MyContactListener.h */,
+				FACC3D58188CAA3E00640560 /* MyContactListener.mm */,
 				FA4363D418792C5F00544722 /* FileHelper.h */,
 				FA4363D518792C5F00544722 /* FileHelper.m */,
+				FACC3D54188BDA0E00640560 /* box2DHelper.h */,
+				FACC3D55188BDA0E00640560 /* box2DHelper.mm */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -697,7 +716,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4363E11879321200544722 /* LevelFileHandler.h */,
-				FA4363E21879321200544722 /* LevelFileHandler.m */,
+				FA4363E21879321200544722 /* LevelFileHandler.mm */,
 			);
 			name = LevelEditor;
 			sourceTree = "<group>";
@@ -1321,6 +1340,10 @@
 				FA9E938B183330CC0097EBDB /* Reachability.m */,
 				FA9E938C183330CC0097EBDB /* SceneController.h */,
 				FA9E938D183330CC0097EBDB /* SceneController.mm */,
+				FACC3D5A188E041500640560 /* LevelMenu.h */,
+				FACC3D5B188E041500640560 /* LevelMenu.mm */,
+				FACC3D5D188E242E00640560 /* LevelCompletion.h */,
+				FACC3D5E188E242E00640560 /* LevelCompletion.mm */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1348,11 +1371,13 @@
 				FAE1CEF21870F9BF00F80605 /* Ball.h */,
 				FAE1CEF31870F9BF00F80605 /* Ball.mm */,
 				FA4363D718792D2700544722 /* AbstractModel.h */,
-				FA4363E5187946E900544722 /* AbstractModel.m */,
-				FA4363DA187930A500544722 /* TargetCircle.h */,
-				FA4363DB187930A500544722 /* TargetCircle.m */,
-				FA4363DD1879311200544722 /* TargetPlusShape.h */,
-				FA4363DE1879311200544722 /* TargetPlusShape.m */,
+				FA4363E5187946E900544722 /* AbstractModel.mm */,
+				FA4363DA187930A500544722 /* Player.h */,
+				FA4363DB187930A500544722 /* Player.mm */,
+				FA4363DD1879311200544722 /* Target.h */,
+				FA4363DE1879311200544722 /* Target.mm */,
+				FACC3D51188BCED000640560 /* Obstacle.h */,
+				FACC3D52188BCED000640560 /* Obstacle.mm */,
 			);
 			name = Models;
 			path = Levels/Models;
@@ -1407,7 +1432,7 @@
 		FA9E913318332F790097EBDB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = FA9E913618332F790097EBDB /* Build configuration list for PBXProject "whatisit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1531,11 +1556,13 @@
 				FA9E923318332F7B0097EBDB /* CCTransitionProgress.m in Sources */,
 				FA9E923718332F7B0097EBDB /* cocos2d.m in Sources */,
 				FA9E923E18332F7B0097EBDB /* CCDirectorIOS.m in Sources */,
+				FACC3D5C188E041500640560 /* LevelMenu.mm in Sources */,
 				FA9E924118332F7B0097EBDB /* CCES2Renderer.m in Sources */,
 				FA9E924518332F7B0097EBDB /* CCGLView.m in Sources */,
 				FA9E924918332F7B0097EBDB /* CCTouchDispatcher.m in Sources */,
 				FA9E924C18332F7B0097EBDB /* CCTouchHandler.m in Sources */,
 				FA9E925018332F7B0097EBDB /* CCDirectorMac.m in Sources */,
+				FACC3D5F188E242E00640560 /* LevelCompletion.mm in Sources */,
 				FA9E925318332F7B0097EBDB /* CCEventDispatcher.m in Sources */,
 				FA9E925618332F7B0097EBDB /* CCGLView.m in Sources */,
 				FA9E925918332F7B0097EBDB /* CCWindow.m in Sources */,
@@ -1549,6 +1576,7 @@
 				FA9E927218332F7B0097EBDB /* CGPointExtension.m in Sources */,
 				FA9E927518332F7B0097EBDB /* NSThread+performBlock.m in Sources */,
 				FA9E927918332F7B0097EBDB /* TGAlib.m in Sources */,
+				FACC3D56188BDA0E00640560 /* box2DHelper.mm in Sources */,
 				FA9E927C18332F7B0097EBDB /* TransformUtils.m in Sources */,
 				FA9E928118332F7B0097EBDB /* ZipUtils.m in Sources */,
 				FA9E928618332F7B0097EBDB /* CDAudioManager.m in Sources */,
@@ -1604,6 +1632,7 @@
 				FA9E933218332F7C0097EBDB /* b2DistanceJoint.cpp in Sources */,
 				FA9E933518332F7C0097EBDB /* b2FrictionJoint.cpp in Sources */,
 				FA9E933818332F7C0097EBDB /* b2GearJoint.cpp in Sources */,
+				FACC3D53188BCED000640560 /* Obstacle.mm in Sources */,
 				FA9E933B18332F7C0097EBDB /* b2Joint.cpp in Sources */,
 				FA9E933E18332F7C0097EBDB /* b2MouseJoint.cpp in Sources */,
 				FA9E934118332F7C0097EBDB /* b2PrismaticJoint.cpp in Sources */,
@@ -1619,6 +1648,7 @@
 				FA9E936918332F7D0097EBDB /* PhysicsSprite.mm in Sources */,
 				FA9E9390183330CC0097EBDB /* AppStoreController.mm in Sources */,
 				FA9E9391183330CC0097EBDB /* AppStoreView.mm in Sources */,
+				FACC3D59188CAA3E00640560 /* MyContactListener.mm in Sources */,
 				FA9E9392183330CC0097EBDB /* GameController.mm in Sources */,
 				FA9E9393183330CC0097EBDB /* GameIAPHelper.m in Sources */,
 				FA9E9394183330CC0097EBDB /* GameLayer.mm in Sources */,
@@ -1640,10 +1670,10 @@
 				FA4363CE1879209A00544722 /* CoordinateHelper.m in Sources */,
 				FA4363D11879233E00544722 /* GDataXMLNode.m in Sources */,
 				FA4363D618792C5F00544722 /* FileHelper.m in Sources */,
-				FA4363DC187930A500544722 /* TargetCircle.m in Sources */,
-				FA4363DF1879311200544722 /* TargetPlusShape.m in Sources */,
-				FA4363E31879321200544722 /* LevelFileHandler.m in Sources */,
-				FA4363E6187946E900544722 /* AbstractModel.m in Sources */,
+				FA4363DC187930A500544722 /* Player.mm in Sources */,
+				FA4363DF1879311200544722 /* Target.mm in Sources */,
+				FA4363E31879321200544722 /* LevelFileHandler.mm in Sources */,
+				FA4363E6187946E900544722 /* AbstractModel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1653,7 +1683,12 @@
 		FA9E936C18332F7D0097EBDB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1663,21 +1698,31 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDK_DIR)\"/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = "$(SDK_DIR)\"/usr/include/libxml2";
 			};
 			name = Debug;
 		};
 		FA9E936D18332F7D0097EBDB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1685,14 +1730,18 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDK_DIR)\"/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-lxml2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = "$(SDK_DIR)\"/usr/include/libxml2";
 			};
 			name = Release;
 		};
@@ -1712,7 +1761,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"whatisit/libs\" /usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"whatisit/libs\" $(SDK_DIR)\"/usr/include/libxml2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1732,7 +1781,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"whatisit/libs\" /usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "\"whatisit/libs\" $(SDK_DIR)\"/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

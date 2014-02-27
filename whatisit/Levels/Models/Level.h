@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ApplicationConstants.h"
 
 /* 
  This is an entity for specifying episode/level information
@@ -20,5 +21,6 @@
 @property (assign, nonatomic) int episode;
 
 -(id)initWithEpisode:(int)ep :(int)l ;
++(Level*)getNext:(Level*)level;
 
 @end

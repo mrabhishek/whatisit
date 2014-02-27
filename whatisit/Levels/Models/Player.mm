@@ -6,9 +6,9 @@
 //
 //
 
-#import "TargetCircle.h"
+#import "Player.h"
 
-@implementation TargetCircle
+@implementation Player
 
 -(id)init {
     self = [super init];

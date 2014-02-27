@@ -15,10 +15,17 @@
 #import "GameLayer.h"
 #import "Hud.h"
 #import "Level.h"
+#import "LevelCompletion.h"
 
 @interface GameController : CCScene
     
 @property (nonatomic,assign) GameLayer *gameView;
+@property (nonatomic,assign) ResultType gameResult;
+@property (nonatomic,assign) LevelCompletion *levelCompletion;
+@property (nonatomic,assign) Level *currentLevel;
+@property (nonatomic,assign) Level *lastCompletedLevel;
+@property (nonatomic,assign) Level *nextLevel;
+
 
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
@@ -26,7 +33,9 @@
 -(void)pauseGame:(id)sender;
 -(void)resumeGame:(id)sender;
 -(bool)setGameLevel:(Level*) level;
+-(Level*)getNextGameLevel;
 -(bool)SetNextGameLevel;
--(Level*)getLastPlayedGameLevel;
+-(Level*)getLastCompletedGameLevel;
+-(void) resetGameBodies;
 
 @end
