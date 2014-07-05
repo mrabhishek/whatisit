@@ -30,14 +30,19 @@
     [CCMenuItemFont setFontSize:44];
     [CCMenuItemFont setFontName:kFontName];
     
-    CCMenuItemLabel *pause = [CCMenuItemFont itemWithString:@"Pause" block:^(id sender){
+    CCMenuItemImage *pause = [CCMenuItemImage itemWithNormalImage:@"hudmenu.png" selectedImage:@"hudmenu.png" block:^(id sender){
         [self pauseGame];
         
     }];
+    CCMenuItemImage *replay = [CCMenuItemImage itemWithNormalImage:@"hudmenu.png" selectedImage:@"hudmenu.png" block:^(id sender){
+        [self replay];
+        
+    }];
     
-    CCMenu *menu = [CCMenu menuWithItems:pause,nil];
+    CCMenu *menu = [CCMenu menuWithItems:pause,replay,nil];
     
     [self addChild: menu];
+    [menu alignItemsHorizontally];
     
     CGSize size = [[CCDirector sharedDirector] winSize];
 	[menu setPosition:ccp( size.width/6, size.height*0.9)];
@@ -52,6 +57,11 @@
 -(void)pauseGame
 {
     [self.delegate didPressPause:self];
+}
+
+-(void)replay
+{
+    [self.delegate didPressReplayFromHud:self];
 }
 
 @end

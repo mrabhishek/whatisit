@@ -1,0 +1,13 @@
+<map>
+    <layer name="settings">
+        <environment gravity="-10" />
+    </layer>
+    <layer name="objects">
+        <object shape="hwall_quarter" x="0.755304" y="0.608815" points="0" type="kinematic" die="0" sensor="0" bonus="0" killerwall="0" movingx = "1" movingy = "0" fromx="0.5" fromy ="0"  tox="1" toy="0" velx="1" vely = "0"/>
+        <object shape="vwall_quarter" x="0.875692" y="0.445107" points="0" type="kinematic" die="0" sensor="0" bonus="0" killerwall="0" />
+        <object shape="vwall_quarter" x="0.64532" y="0.445107" points="0" type="kinematic" die="0" sensor="0" bonus="0" killerwall="0" />
+        <object shape="hwall_quarter" x="0.759673" y="0.298085" points="0" type="kinematic" die="0" sensor="0" bonus="0" killerwall="0" />
+        <target shape="circle" x="0.757129" y="0.433222" points="0" type="kinematic" die="1" sensor="0" bonus="0" killerwall="0" />
+        <player shape="circle" x="0.460214" y="0.07325" points="0" type="dynamic" die="0" sensor="0" bonus="0" killerwall="0" />
+    </layer>
+</map>

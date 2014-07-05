@@ -1,0 +1,11 @@
+<map>
+    <layer name="settings">
+        <environment gravity="-10" />
+    </layer>
+    <layer name="objects">
+        <object shape="vwall_half" x="0.458948" y="0.275799" points="0" type="kinematic" die="0" sensor="0" bonus="0" killerwall="0" />
+        <object shape="plus_small" x="0.198246" y="0.409688" points="0" type="kinematic" die="1" sensor="1" bonus="1" killerwall="0" />
+        <target shape="circle" x="0.198246" y="0.309688" points="0" type="kinematic" die="1" sensor="0" bonus="0" killerwall="0" />
+        <player shape="circle" x="0.738514" y="0.0732259" points="0" type="dynamic" die="0" sensor="0" bonus="0" killerwall="0" />
+    </layer>
+</map>

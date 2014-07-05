@@ -56,10 +56,12 @@
         
         switch (_gameResult) {
             case levelComplete:
-                [self levelComplete:self];
+                [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(levelComplete:) userInfo:nil repeats:NO];
+                //[self levelComplete:self];
                 break;
             case levelFailed:
-                [self levelFailed:self];
+                [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(levelFailed:) userInfo:nil repeats:NO];
+                //[self levelFailed:self];
                 break;
             default:
                 break;
@@ -69,12 +71,22 @@
 
 -(void)levelComplete :(id)sender
 {
-    _lastCompletedLevel = _currentLevel;
+    if(_lastCompletedLevel == nil)
+    {
+        _lastCompletedLevel = [[Level alloc] initWithEpisode:_currentLevel.episode :_currentLevel.levelNum];
+    }
+    else
+    {
+        _lastCompletedLevel.episode = _currentLevel.episode;
+        _lastCompletedLevel.levelNum = _currentLevel.levelNum;
+    }
+    //sleep(1);
     [_levelCompletion.delegate levelComplete:self];
 }
 
 -(void)levelFailed :(id)sender
 {
+    //sleep(1);
     [_levelCompletion.delegate levelFailed:self];
 }
 
@@ -91,9 +103,25 @@
     return [[LevelFileHandler alloc] initWithFileName:[NSString stringWithFormat:@"%d_%d",level.episode,level.levelNum]];
 }
 
+-(bool) SetCurrentGameLevel
+{
+    Level *level = _currentLevel;
+    if(level == nil)
+    {
+        level = [self getDefaultLEvel];
+    }
+    
+    if(level == nil)
+    {
+        return NO;
+    }
+    
+    return [self setGameLevel:level];
+}
+
 -(bool)SetNextGameLevel
 {
-    Level *level = [self getLastCompletedGameLevel];
+    Level* level = [self getLastCompletedGameLevel];
     //TODO get next level from here
     //Need to do the max check, If user completed all
     //available levels do something!!
@@ -107,7 +135,8 @@
     }
     else
     {
-        level = [Level getNext:level];
+        //make sure not to change the last completed level pointer
+        level = [Level getNext:[[Level alloc]initWithEpisode:level.episode :level.levelNum]];
     }
     
     if(level == nil)
@@ -140,6 +169,29 @@
 {
     [_gameView resetGameBodies];
 }
+
+-(void)ShowMessageAtPositionForTime:(NSString*)str :(CGPoint) position :(int)forTime :(int) fontSize
+{
+    //TODO show a message at position
+    CCLabelTTF  *startText = [CCLabelTTF labelWithString:str fontName:kFontName fontSize:fontSize];
+    startText.position = position;
+    [startText runAction:[CCFadeTo actionWithDuration:forTime opacity:1.0f]];
+    if([self getChildByTag:TAG_GAME_CONTROLLER_TEXT])
+    {
+        [self removeChildByTag:TAG_GAME_CONTROLLER_TEXT cleanup:YES];
+    }
+    [self addChild:startText z:1 tag:TAG_GAME_CONTROLLER_TEXT];
+}
+
+-(void) CleanMessage
+{
+    if([self getChildByTag:TAG_GAME_CONTROLLER_TEXT])
+    {
+        [self removeChildByTag:TAG_GAME_CONTROLLER_TEXT cleanup:YES];
+    }
+}
+
+
 //for testing purposes
 - (id) retain
 {

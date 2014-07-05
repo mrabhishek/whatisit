@@ -15,9 +15,9 @@
 
 @interface LevelFileHandler : NSObject
 
-@property Player* player;
-@property Target* target;
-@property NSMutableArray* obstacles;
+@property (retain) Player* player;
+@property (retain) Target* target;
+@property (retain) NSMutableArray* obstacles;
 
 +(CGPoint) levelPositionToScreenPosition:(CGPoint) position;
 - (id)initWithFileName:(NSString*) fileName;

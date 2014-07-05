@@ -12,7 +12,7 @@
 
 +(ShapeType)shapeFromShapeString :(NSString*) shapeStr
 {
-    ShapeType shape = circle;
+    ShapeType shape = unknown;
     
     if([shapeStr isEqualToString:@"circle"])
     {
@@ -29,6 +29,26 @@
     else if ([shapeStr isEqualToString:@"hwall_half"])
     {
         shape = hwall_half;
+    }
+    else if ([shapeStr isEqualToString:@"hwall_full"])
+    {
+        shape = hwall_full;
+    }
+    else if ([shapeStr isEqualToString:@"vwall_half"])
+    {
+        shape = vwall_half;
+    }
+    else if ([shapeStr isEqualToString:@"vwall_full"])
+    {
+        shape = vwall_full;
+    }
+    else if ([shapeStr isEqualToString:@"hwall_quarter"])
+    {
+        shape = hwall_quarter;
+    }
+    else if ([shapeStr isEqualToString:@"vwall_quarter"])
+    {
+        shape = vwall_quarter;
     }
     
     return shape;

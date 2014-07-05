@@ -42,26 +42,26 @@
     [CCMenuItemFont setFontName:kFontName];
 	
     // Reset Button
-	CCMenuItemLabel *replay = [CCMenuItemFont itemWithString:@"Replay" block:^(id sender){
+	CCMenuItemImage *replay = [CCMenuItemImage itemWithNormalImage:@"replay.png" selectedImage:@"replay.png" block:^(id sender){
         [self.delegate didPressReplay:self];
 	}];
     
     // Reset Button
-	CCMenuItemLabel *next = [CCMenuItemFont itemWithString:@"Next" block:^(id sender){
+	CCMenuItemImage *next = [CCMenuItemImage itemWithNormalImage:@"next.png" selectedImage:@"next.png" block:^(id sender){
         [self.delegate didPressNextLevel:self];
 	}];
     
     //Main menu
-	CCMenuItemLabel *mainMenu = [CCMenuItemFont itemWithString:@"Main Menu" block:^(id sender){
+	CCMenuItemImage *mainMenu = [CCMenuItemImage itemWithNormalImage:@"menu.png" selectedImage:@"menu.png" block:^(id sender){
         [self.delegate didPressMainMenuFromLevelMenu:self];
 	}];
     
 	CCMenu *menu = [CCMenu menuWithItems:replay,next,mainMenu, nil];
     
-	[menu alignItemsVertically];
+	[menu alignItemsInColumns:[NSNumber numberWithInt:2],[NSNumber numberWithInt:1], nil];
 	
 	CGSize size = [[CCDirector sharedDirector] winSize];
-	[menu setPosition:ccp( size.width/2, size.height/2)];
+	[menu setPosition:ccp( size.width/2, 0.33*size.height)];
 	
 	
 	[self addChild: menu z:-1];

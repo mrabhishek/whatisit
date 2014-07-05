@@ -12,6 +12,7 @@
 
 @protocol HudDelegate <NSObject>
 - (void)didPressPause:(id)sender;
+- (void)didPressReplayFromHud:(id)sender;
 @end
 
 @interface Hud : CCLayer

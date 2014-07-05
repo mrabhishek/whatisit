@@ -37,10 +37,11 @@
     NSString *filePath = [FileHelper dataFilePathForFileWithName:_filename withExtension:@".xml" forSave:NO];
     NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData options:0 error:nil];
+    [xmlData release]; //TODO verify release
     
     // clean level data before loading level from file
-    self.player = [[Player alloc]init];
-    self.target = [[Target alloc]init];
+    self.player = [[[Player alloc]init]autorelease];
+    self.target = [[[Target alloc]init]autorelease];
     
     // if there is no file doc will be empty and we simply return from this method
     if (doc == nil) {
@@ -126,12 +127,46 @@
             obstacle.bodyType = [box2DHelper bodyTypeFrombodyTypeString:[object attributeForName:@"type"].stringValue];
             
             obstacle.die = [object attributeForName:@"die"].stringValue.boolValue;
+            obstacle.sensor = [object attributeForName:@"sensor"].stringValue.boolValue;
+            obstacle.killerwall = [object attributeForName:@"killerwall"].stringValue.boolValue;
+            obstacle.bonus = [object attributeForName:@"bonus"].stringValue.boolValue;
+            obstacle.movingx = [object attributeForName:@"movingx"].stringValue.boolValue;
+            obstacle.movingy = [object attributeForName:@"movingy"].stringValue.boolValue;
+            
+            float fromx = [object attributeForName:@"fromx"].stringValue.floatValue;
+            float fromy = [object attributeForName:@"fromy"].stringValue.floatValue;
+            
+            obstacle.from = [LevelFileHandler levelPositionToScreenPosition:CGPointMake(fromx, fromy)];
+            
+            float tox = [object attributeForName:@"tox"].stringValue.floatValue;
+            float toy = [object attributeForName:@"toy"].stringValue.floatValue;
+            
+            obstacle.to = [LevelFileHandler levelPositionToScreenPosition:CGPointMake(tox, toy)];
+            
+            float velx = [object attributeForName:@"velx"].stringValue.floatValue;
+            float vely = [object attributeForName:@"vely"].stringValue.floatValue;
+            
+            //safety against bad xml data;
+            if(obstacle.movingx) vely =0;
+            if(obstacle.movingy) velx = 0;
+            
+            obstacle.vel = b2Vec2(velx, vely);
             
             [self.obstacles addObject:obstacle];
         }
         
     }
     
+    [doc release]; //TODO check release
+}
+
+-(void)dealloc
+{
+    [_player release]; _player =nil;
+    [_target release]; _target =nil;
+    [_obstacles release]; _obstacles = nil;
+    
+    [super dealloc];
 }
 
 +(CGPoint) levelPositionToScreenPosition:(CGPoint) position {

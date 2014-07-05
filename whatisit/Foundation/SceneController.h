@@ -22,9 +22,11 @@
 #import "Level.h"
 #import "LevelMenu.h"
 #import "LevelCompletion.h"
+#import "LevelSelectMenu.h"
+#import "EpisodeSelectMenu.h"
 
 //change to inherit nsobject
-@interface SceneController : NSObject<HudDelegate,OverlayMenuDelegate,MainMenuDelegate,AppStoreDelegate,LevelMenuDelegate,LevelCompletionDelegate>
+@interface SceneController : NSObject<HudDelegate,OverlayMenuDelegate,MainMenuDelegate,AppStoreDelegate,LevelMenuDelegate,LevelCompletionDelegate,LevelSelectMenuDelegate,EpisodeSelectMenuDelegate>
 {
     Hud * _hud;
     OverlayMenu *_overlayMenu;
@@ -34,6 +36,9 @@
     CCScene *_currentScene;
     LevelMenu *_levelMenu;
     LevelCompletion *_levelCompletion;
+    CGSize m_windowSize;
+    EpisodeSelectMenu *_episodeSelectMenu;
+    LevelSelectMenu *_levelSelectMenu;
 }
 
 -(CCScene*) getCurrentScene;

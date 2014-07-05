@@ -155,6 +155,8 @@ b2Fixture* b2Body::CreateFixture(const b2FixtureDef* def)
 	{
 		return NULL;
 	}
+    
+    //b2Log("reached here -CreateFixture \n");
 
 	b2BlockAllocator* allocator = &m_world->m_blockAllocator;
 

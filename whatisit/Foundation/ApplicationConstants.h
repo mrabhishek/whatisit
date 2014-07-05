@@ -20,6 +20,10 @@
 #define TAG_HUD  201
 #define TAG_OVERLAY_MENU 301
 #define TAG_LEVEL_MENU 401
+#define TAG_GAME_LAYER_TEXT 501
+#define TAG_GAME_CONTROLLER_TEXT 601
+#define TAG_EPISODE_SELECT_MENU 701
+#define TAG_LEVEL_SELECT_MENU = 801
 
 //Fonts to use
 #define kFontNormal [UIFont fontWithName:@"comic andy" size:32.0] //change values
@@ -32,21 +36,30 @@
 #define kPlusWidthSmall 2
 #define kPlusHeightSmall 8
 #define kBallRestitution 0.80f
-#define kHorizontalWallHeight 2
-#define kVerticalWallWidth 2
-#define kTotalNumberOfEpisodes 1 //go on adding episodes 
-#define kLevelsPerEpisode 3
+#define kHorizontalWallHeight 10
+#define kVerticalWallWidth 10
+#define kHorizontalSideWallHeight 2.5
+#define kVerticalSideWallWidth 2.5 //1/4 of the image box
+#define kTotalNumberOfEpisodes 3 //go on adding episodes
+#define kLevelsPerEpisode 5
+#define kFontFileName @"Comic_Andy.ttf"
+#define iPadMultiplier 1 //change this value 
 
 @interface ApplicationConstants : NSObject
 
 enum ShapeType
 {
-    circle = 0,
+    unknown = 0,
+    circle,
     chain,
     plus,
     plus_small,
+    hwall_quarter,
     hwall_half,
-    vwall_half
+    hwall_full,
+    vwall_quarter,
+    vwall_half,
+    vwall_full,
 };
 
 enum ResultType

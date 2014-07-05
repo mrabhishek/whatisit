@@ -106,6 +106,12 @@
         _levelCompletion = [[LevelCompletion alloc]init];
         _levelCompletion.delegate = self;
         
+        _episodeSelectMenu = [[EpisodeSelectMenu alloc] init];
+        _episodeSelectMenu.delegate = self;
+        
+        _levelSelectMenu = [[LevelSelectMenu alloc] init];
+        _levelSelectMenu.delegate = self;
+        
         //autorealese because gamecontroller will own it
         //by adding it as a child
         GameLayer * gameLayer = [[[GameLayer alloc]init] autorelease];
@@ -138,6 +144,19 @@
         [_gameController addChild:_overlayMenu z:1 tag:TAG_OVERLAY_MENU];
     }
 }
+
+-(void)didPressReplayFromHud :(id)sender
+{
+    //_hud.hidePauseButton;
+    //_hud.overlayMenu
+    //TODO make sure to get a proper scene
+    if(_gameController != nil)
+    {
+        [_gameController resetGameBodies];
+        [_gameController SetCurrentGameLevel];
+    }
+}
+
 
 //overlay menu delegate method
 -(void) didPressResume:(id)sender
@@ -198,11 +217,14 @@
     //[NSThread sleepForTimeInterval:0.2];
     if(_gameController != nil)
     {
+        m_windowSize = [CCDirector sharedDirector].winSize;
         [_gameController resetGameBodies];
+        [_gameController ShowMessageAtPositionForTime:@"Good job!!":ccp(m_windowSize.width/2,0.75*m_windowSize.height):120:40];
         [_gameController removeChildByTag:TAG_HUD cleanup:NO];
         [_gameController addChild:_levelMenu z:1 tag:TAG_LEVEL_MENU];
     }
 }
+
 
 -(void)levelFailed :(id)sender
 {
@@ -212,17 +234,44 @@
     if(_gameController != nil)
     {
         [_gameController resetGameBodies];
+        [_gameController ShowMessageAtPositionForTime:@"Better luck next time!!":ccp(m_windowSize.width/2,0.75*m_windowSize.height):120:40];
         [_gameController removeChildByTag:TAG_HUD cleanup:NO];
         [_gameController addChild:_levelMenu z:1 tag:TAG_LEVEL_MENU];
     }
     
 }
 
+//EpisodeSelectMenu delegate method
+-(void) didPressEpisode:(id)sender :(int)num
+{
+    
+}
+
+//EpisodeSelectMenu delegate method
+-(void) didPressMainMenuFromEpisodeSelectMenu:(id)sender
+{
+    
+}
+
+//LevelSelectMenu delegate method
+-(void) didPressLevel:(id)sender :(int)num
+{
+    
+}
+
+//LevelSelectMenu delegate method
+-(void) didPressMainMenuFromLevelSelectMenu:(id)sender
+{
+    
+}
+
+
 //overlay menu delegate method
 -(void) didPressNextLevel:(id)sender
 {
     if(_gameController != nil)
     {
+        [_gameController CleanMessage];
         [_gameController removeChildByTag:TAG_LEVEL_MENU cleanup:NO];
         [_gameController addChild:_hud z:1 tag:TAG_HUD];
         [_gameController SetNextGameLevel];
@@ -234,18 +283,23 @@
 {
     if(_gameController != nil)
     {
+        [_gameController CleanMessage];
         [_gameController removeChildByTag:TAG_LEVEL_MENU cleanup:NO];
         [_gameController addChild:_hud z:1 tag:TAG_HUD];
+        [_gameController SetCurrentGameLevel];
     }
 }
 
 //overlay menu delegate method
+//this should bring up the episode select menu.
 -(void) didPressMainMenuFromLevelMenu:(id)sender
 {
     //TODO setup previous level on the game
     if(_gameController != nil)
     {
+        [_gameController CleanMessage];
         [_gameController removeChildByTag:TAG_LEVEL_MENU cleanup:NO];
+        [self didPressMainMenu:sender];
     }
 }
 

@@ -394,7 +394,7 @@ enum {
 		columns = va_arg(args, NSNumber*);
 	}
 
-	int height = -5;
+	int height = -20;
     NSUInteger row = 0, rowHeight = 0, columnsOccupied = 0, rowColumns;
 	CCMenuItem *item;
 	CCARRAY_FOREACH(children_, item){
@@ -407,7 +407,7 @@ enum {
 		++columnsOccupied;
 
 		if(columnsOccupied >= rowColumns) {
-			height += rowHeight + 5;
+			height += rowHeight + 20;
 
 			columnsOccupied = 0;
 			rowHeight = 0;
@@ -417,32 +417,47 @@ enum {
 	NSAssert( !columnsOccupied, @"Too many rows/columns for available menu items." );
 
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
+    //CGSize winSizeInPixel = [[CCDirector sharedDirector] winSizeInPixels];
 
 	row = 0; rowHeight = 0; rowColumns = 0;
 	float w, x, y = height / 2;
+    int itemNumber = 0;
+    float padding = 20; //custom code for padding
 	CCARRAY_FOREACH(children_, item) {
 		if(rowColumns == 0) {
 			rowColumns = [(NSNumber *) [rows objectAtIndex:row] unsignedIntegerValue];
-			w = winSize.width / (1 + rowColumns);
+			w = winSize.width / (1+rowColumns);
 			x = w;
 		}
+        
+        if(itemNumber == 2) padding = 0; ///really really custom - only works for 3 menus
 
 		CGSize itemSize = item.contentSize;
 		rowHeight = fmaxf(rowHeight, itemSize.height);
-		[item setPosition:ccp(x - winSize.width / 2,
-							  y - itemSize.height / 2)];
+        if(itemNumber%2) {
+            [item setPosition:ccp((x - winSize.width / 2)+padding,
+                                  y - itemSize.height / 2)];
+        } else {
+            [item setPosition:ccp((x - winSize.width / 2)-padding,
+                                  y - itemSize.height / 2)];
+        }
+		
+        //[item setPosition:ccp(x - winSize.width / 2,
+		//					  y - itemSize.height / 2)];
 
 		x += w;
 		++columnsOccupied;
 
 		if(columnsOccupied >= rowColumns) {
-			y -= rowHeight + 5;
+			y -= rowHeight + 20;
 
 			columnsOccupied = 0;
 			rowColumns = 0;
 			rowHeight = 0;
 			++row;
 		}
+        
+        itemNumber++;
 	}
 
 	[rows release];

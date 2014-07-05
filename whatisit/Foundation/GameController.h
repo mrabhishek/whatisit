@@ -22,9 +22,10 @@
 @property (nonatomic,assign) GameLayer *gameView;
 @property (nonatomic,assign) ResultType gameResult;
 @property (nonatomic,assign) LevelCompletion *levelCompletion;
-@property (nonatomic,assign) Level *currentLevel;
-@property (nonatomic,assign) Level *lastCompletedLevel;
-@property (nonatomic,assign) Level *nextLevel;
+@property (retain) Level *currentLevel;
+@property (retain) Level *lastCompletedLevel;
+@property (retain) Level *nextLevel;
+@property (retain) Level *tempLevel;
 
 
 
@@ -34,8 +35,11 @@
 -(void)resumeGame:(id)sender;
 -(bool)setGameLevel:(Level*) level;
 -(Level*)getNextGameLevel;
+-(bool) SetCurrentGameLevel;
 -(bool)SetNextGameLevel;
 -(Level*)getLastCompletedGameLevel;
 -(void) resetGameBodies;
+-(void)ShowMessageAtPositionForTime:(NSString*)str :(CGPoint) position :(int)forTime :(int) fontSize;
+-(void) CleanMessage;
 
 @end

@@ -42,29 +42,29 @@
     [CCMenuItemFont setFontName:kFontName];
 	
     // Reset Button
-	CCMenuItemLabel *play = [CCMenuItemFont itemWithString:@"Resume" block:^(id sender){
+	CCMenuItemImage *play = [CCMenuItemImage itemWithNormalImage:@"resume.png" selectedImage:@"resume.png" block:^(id sender){
         [self.delegate didPressResume:self];
 	}];
     
-    // Reset Button
-	CCMenuItemLabel *newGame = [CCMenuItemFont itemWithString:@"New Game" block:^(id sender){
-        [self.delegate didPressRestart:self];
-	}];
+//    // Reset Button
+//	CCMenuItemLabel *newGame = [CCMenuItemFont itemWithString:@"New Game" block:^(id sender){
+//        [self.delegate didPressRestart:self];
+//	}];
     
     // App Store Button
-	CCMenuItemLabel *appStore = [CCMenuItemFont itemWithString:@"App Store" block:^(id sender){
+	CCMenuItemImage *appStore = [CCMenuItemImage itemWithNormalImage:@"appstore.png" selectedImage:@"appstore.png" block:^(id sender){
         [self.delegate didPressAppStore:self];
 	}];
     
     //Main menu
-	CCMenuItemLabel *mainMenu = [CCMenuItemFont itemWithString:@"Main Menu" block:^(id sender){
+	CCMenuItemImage *mainMenu = [CCMenuItemImage itemWithNormalImage:@"mainmenu.png" selectedImage:@"mainmenu.png" block:^(id sender){
         [self.delegate didPressMainMenu:self];
 	}];
     
     
-	CCMenu *menu = [CCMenu menuWithItems:play,newGame,appStore,mainMenu, nil];
+	CCMenu *menu = [CCMenu menuWithItems:play,appStore,mainMenu, nil];
     
-	[menu alignItemsVertically];
+	[menu alignItemsVerticallyWithPadding:20];
 	
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	[menu setPosition:ccp( size.width/2, size.height/2)];

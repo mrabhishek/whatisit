@@ -26,12 +26,12 @@
 @interface GameLayer : CCLayerGradient
 {
 	CCTexture2D *spriteTexture_;	// weak ref
-    CGPoint _startLocation;
-    CGPoint _midLocation;
-    CGPoint _endLocation;
+    CGPoint m_startLocation;
+    CGPoint m_midLocation;
+    CGPoint m_endLocation;
     
     
-    Test* _gameBrain;
+    Test* m_gameBrain;
     Settings settings;
     
     CGSize m_windowSize;
@@ -46,10 +46,13 @@
     b2Body* m_target;
     b2Body* m_boundary;
     
-    CFTimeInterval _touchStartTime;
-    int _firstMove;
-    LevelFileHandler *_levelFile;
-    MyContactListener *_contactListener;
+    CFTimeInterval m_touchStartTime;
+    int m_firstMove;
+    LevelFileHandler *m_levelFile;
+    MyContactListener *m_contactListener;
+    
+    int m_livesLeft;
+    int m_playerStuckCount;
 }
 
 -(ResultType) updateView: (ccTime) dt;
@@ -57,6 +60,7 @@
 -(void) resumeGameView:(id)sender;
 -(void) setGameLevel:(LevelFileHandler*)levelFile Sender:(id)sender;
 -(void) resetGameBodies;
+-(void)ShowMessageAtPositionForTime:(NSString*)str :(CGPoint) position :(int)forTime :(int) fontSize;
 
 
 @end

@@ -18,5 +18,14 @@
 @property ShapeType shape;
 @property int points;
 @property bool die;
+@property bool sensor;
+@property bool killerwall;
+@property bool bonus;
+@property bool movingx;
+@property bool movingy;
+@property CGPoint from;
+@property CGPoint to;
+@property b2Vec2 vel;
+
 
 @end

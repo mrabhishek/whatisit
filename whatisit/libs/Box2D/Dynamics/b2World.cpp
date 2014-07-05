@@ -585,10 +585,14 @@ void b2World::SolveTOI(const b2TimeStep& step)
 			b->m_flags &= ~b2Body::e_islandFlag;
 			b->m_sweep.alpha0 = 0.0f;
 		}
-
+        
+        int count = 1;
 		for (b2Contact* c = m_contactManager.m_contactList; c; c = c->m_next)
 		{
+            
 			// Invalidate TOI
+            
+            
 			c->m_flags &= ~(b2Contact::e_toiFlag | b2Contact::e_islandFlag);
 			c->m_toiCount = 0;
 			c->m_toi = 1.0f;
