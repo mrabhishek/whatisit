@@ -26,6 +26,7 @@
 @property CGPoint from;
 @property CGPoint to;
 @property b2Vec2 vel;
+@property int angularVelocity;
 
 
 @end

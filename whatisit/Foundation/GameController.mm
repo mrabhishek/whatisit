@@ -56,12 +56,12 @@
         
         switch (_gameResult) {
             case levelComplete:
-                [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(levelComplete:) userInfo:nil repeats:NO];
-                //[self levelComplete:self];
+                //[NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(levelComplete:) userInfo:nil repeats:NO];
+                [self levelComplete:self];
                 break;
             case levelFailed:
-                [NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(levelFailed:) userInfo:nil repeats:NO];
-                //[self levelFailed:self];
+                //[NSTimer scheduledTimerWithTimeInterval:.5 target:self selector:@selector(levelFailed:) userInfo:nil repeats:NO];
+                [self levelFailed:self];
                 break;
             default:
                 break;
@@ -70,6 +70,13 @@
 }
 
 -(void)levelComplete :(id)sender
+{
+    [self levelCompletionUpdate:sender];
+    //sleep(1);
+    [_levelCompletion.delegate levelComplete:self];
+}
+
+-(void)levelCompletionUpdate:(id)sender
 {
     if(_lastCompletedLevel == nil)
     {
@@ -80,13 +87,15 @@
         _lastCompletedLevel.episode = _currentLevel.episode;
         _lastCompletedLevel.levelNum = _currentLevel.levelNum;
     }
-    //sleep(1);
-    [_levelCompletion.delegate levelComplete:self];
 }
 
 -(void)levelFailed :(id)sender
 {
     //sleep(1);
+    //hack -- complete the current level so that level menu
+    //works with previous and next.
+    [self levelCompletionUpdate:self];
+    
     [_levelCompletion.delegate levelFailed:self];
 }
 

@@ -27,6 +27,7 @@ enum {
 class BodyDetail
 {
 public:
+    int m_id;
     bool m_shouldDie;
     bool m_sensor;
     bool m_killerWall;
@@ -35,9 +36,10 @@ public:
     float m_vel;
     CCSprite* m_sprite;
     
-    BodyDetail(CCSprite* sprite,bool shouldDie, bool sensor = false, bool killerWall = false
+    BodyDetail(int ident,CCSprite* sprite,bool shouldDie, bool sensor = false, bool killerWall = false
                ,bool movingx = false, bool movingy = false, float vel=0)
     {
+        m_id = ident;
         m_sprite = sprite;
         m_shouldDie = shouldDie;
         m_sensor = sensor;
@@ -132,6 +134,7 @@ public:
     [self setupTarget:levelfile.target];
     [self setupPlayer:levelfile.player];
     [self setupObstacles:levelfile.obstacles];
+    [self setupJoints:levelfile.revoluteJoints];
 }
 
 -(void) setupWorld
@@ -202,38 +205,66 @@ public:
     m_boundary = m_world->CreateBody(&bd);
     
     //bottom 1 wall
-    {
+    /*{
         b2EdgeShape shape;
         shape.Set(b2Vec2(_X(0.0f), _X(0.0f)), b2Vec2(_X(m_windowSize.width), _X(0.0f)));
         m_boundary->CreateFixture(&shape, 0.0f);
-    }
+    }*/
     
     //bottom 2 wall
     {
         b2EdgeShape shape;
         shape.Set(b2Vec2(_X(0.0f), _X(m_windowSize.height*0.025)), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height*0.025)));
         m_boundary->CreateFixture(&shape, 0.0f);
+        
+        CCSprite* spr = [CCSprite spriteWithFile:@"hwall_half.png"];
+        spr.position = ccp(m_windowSize.width*0.25, m_windowSize.height*0.0125);
+        [self addChild:spr z:2];
+        CCSprite* spr2 = [CCSprite spriteWithFile:@"hwall_half.png"];
+        spr2.position = ccp(m_windowSize.width*0.75, m_windowSize.height*0.0125);
+        [self addChild:spr2 z:2];
     }
     
     //left wall
     {
         b2EdgeShape shape;
-        shape.Set(b2Vec2(_X(0.0f), _X(0.0f)), b2Vec2(_X(0.0f), _X(m_windowSize.height)));
+        shape.Set(b2Vec2(_X(m_windowSize.width*0.025), _X(0.0f)), b2Vec2(_X(0.0f), _X(m_windowSize.height)));
         m_boundary->CreateFixture(&shape, 0.0f);
+        
+        CCSprite* spr = [CCSprite spriteWithFile:@"vwall_half.png"];
+        spr.position = ccp(m_windowSize.width*0.0125, m_windowSize.height*0.25);
+        [self addChild:spr z:2];
+        CCSprite* spr2 = [CCSprite spriteWithFile:@"vwall_half.png"];
+        spr2.position = ccp(m_windowSize.width*0.0125, m_windowSize.height*0.75);
+        [self addChild:spr2 z:2];
     }
     
     //top wall
     {
         b2EdgeShape shape;
-        shape.Set(b2Vec2(_X(0.0f), _X(m_windowSize.height)), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height)));
+        shape.Set(b2Vec2(_X(0.0f), _X(m_windowSize.height*0.975)), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height*0.975)));
         m_boundary->CreateFixture(&shape, 0.0f);
+        
+        CCSprite* spr = [CCSprite spriteWithFile:@"hwall_half.png"];
+        spr.position = ccp(m_windowSize.width*0.25, m_windowSize.height*0.9875);
+        [self addChild:spr z:2];
+        CCSprite* spr2 = [CCSprite spriteWithFile:@"hwall_half.png"];
+        spr2.position = ccp(m_windowSize.width*0.75, m_windowSize.height*0.9875);
+        [self addChild:spr2 z:2];
     }
     
     //right wall
     {
         b2EdgeShape shape;
-        shape.Set(b2Vec2(_X(m_windowSize.width), 0.0f), b2Vec2(_X(m_windowSize.width), _X(m_windowSize.height)));
+        shape.Set(b2Vec2(_X(m_windowSize.width*.975), 0.0f), b2Vec2(_X(m_windowSize.width*.975), _X(m_windowSize.height)));
         m_boundary->CreateFixture(&shape, 0.0f);
+        
+        CCSprite* spr = [CCSprite spriteWithFile:@"vwall_half.png"];
+        spr.position = ccp(m_windowSize.width*0.9875, m_windowSize.height*0.25);
+        [self addChild:spr z:2];
+        CCSprite* spr2 = [CCSprite spriteWithFile:@"vwall_half.png"];
+        spr2.position = ccp(m_windowSize.width*0.9875, m_windowSize.height*0.75);
+        [self addChild:spr2 z:2];
     }
 }
 
@@ -255,8 +286,9 @@ public:
 {
     if(target.shape == circle)
     {
+        float scale = (float)25.0f/25.0f;
         b2CircleShape shape;
-        shape.m_radius = _X(kCircleRadius*m_dMultiplier);
+        shape.m_radius = _X(kCircleRadius*m_dMultiplier*scale);
         
         b2FixtureDef fd;
         fd.shape = &shape;
@@ -271,13 +303,56 @@ public:
         fd.restitution = kBallRestitution;
         body->CreateFixture(&fd);
         
-        BodyDetail* detail = new BodyDetail([self getSpriteForBody:target],target.die,target.sensor);
+        CCSprite* spr = [CCSprite spriteWithFile:@"circle.png"];
+        spr.position = ccp(target.Position.x, target.Position.y);
+        spr.scale = scale;
+        [self addChild:spr];
+        
+        BodyDetail* detail = new BodyDetail(target.Id, spr,target.die,target.sensor);
         
         body->SetUserData(detail);
+        body->SetAngularVelocity(target.angularVelocity);
         
         m_target = body;
     }
     //m_target = [self setupbox2DBody:target];
+}
+
+-(void) setupJoints :(NSMutableArray*) joints
+{
+    for(RevoluteJoint* joint in joints)
+    {
+        if([joint.jointType isEqualToString: @"revolute"] )
+        {
+            [self setupRevoluteJoint:joint];
+        }
+    }
+}
+
+-(b2RevoluteJoint*) setupRevoluteJoint:(RevoluteJoint*) joint
+{
+    b2RevoluteJointDef revJointDef;
+    for (b2Body* b = m_world->GetBodyList(); b; b = b->GetNext())
+    {
+        BodyDetail* detail = (BodyDetail*)b->GetUserData();
+        if (detail !=nil)
+        {
+            if(detail->m_id == joint.IdBodyA)
+            {
+                b->SetGravityScale(0);
+                revJointDef.bodyA = b;
+            }
+            else if (detail->m_id == joint.IdBodyB)
+            {
+                b->SetGravityScale(0);
+                revJointDef.bodyB = b;
+                revJointDef.localAnchorB.Set(-2,0);
+            }
+        }
+        revJointDef.collideConnected = joint.collideConnected;
+    }
+    
+    return (b2RevoluteJoint*)m_world->CreateJoint(&revJointDef);
 }
 
 -(b2Body*)setupbox2DBody:(AbstractModel*)model
@@ -334,14 +409,14 @@ public:
             break;
     }
     
-    BodyDetail* detail = new BodyDetail([self getSpriteForBody:model],model.die,model.sensor);
+    BodyDetail* detail = new BodyDetail(model.Id,[self getSpriteForBody:model],model.die,model.sensor);
     
-    return [self setupPlus:model.bodyType :width :height :model.Position:detail];
+    return [self setupPlus:model.bodyType :width :height :model.Position:detail:model];
 }
 
 
 -(b2Body*)setupPlus :(b2BodyType) ofBodyType :(float) ofWidth :(float)ofHeight
-                 :(CGPoint) position :(BodyDetail*) detail
+                    :(CGPoint) position :(BodyDetail*) detail :(AbstractModel*) model
 {
     b2BodyDef bd;
     bd.type = ofBodyType;
@@ -370,6 +445,7 @@ public:
     
     
     ground->SetUserData(detail);
+    ground->SetAngularVelocity(model.angularVelocity);
     
     return ground;
 }
@@ -377,6 +453,7 @@ public:
 -(CCSprite*)getSpriteForBody :(AbstractModel*)model
 {
     NSString* filename;
+    float scale =1;
     
     switch (model.shape) {
         case plus:
@@ -410,6 +487,7 @@ public:
             break;
         case circle:
             filename =@"circle.png";
+
             break;
         default:
             filename = @"circle.png";
@@ -417,6 +495,7 @@ public:
     }
     CCSprite* spr = [CCSprite spriteWithFile:filename];
     spr.position = ccp(model.Position.x, model.Position.y);
+    spr.scale = scale;
     [self addChild:spr];
     return spr;
 }
@@ -441,7 +520,7 @@ public:
     groundBox->CreateFixture(&myFixtureDef);
     
     
-    BodyDetail* detail = new BodyDetail([self getSpriteForBody:model],model.die,model.sensor,model.killerwall);
+    BodyDetail* detail = new BodyDetail(model.Id,[self getSpriteForBody:model],model.die,model.sensor,model.killerwall);
     
     if(model.movingx)
     {
@@ -456,7 +535,10 @@ public:
             groundBox->SetLinearVelocity(model.vel);
             
         }
-        else if(model.vel.y > 0)
+    }
+    else if(model.movingy)
+    {
+        if(model.vel.y > 0)
         {
             detail->m_vel = model.vel.y;
             detail->m_movingy = true;
@@ -465,6 +547,7 @@ public:
     }
     
     groundBox->SetUserData(detail);
+    groundBox->SetAngularVelocity(model.angularVelocity);
     
     return groundBox;
 }
@@ -488,9 +571,10 @@ public:
     fd.restitution = kBallRestitution;
     body->CreateFixture(&fd);
     
-    BodyDetail* detail = new BodyDetail([self getSpriteForBody:model],model.die,model.sensor);
+    BodyDetail* detail = new BodyDetail(model.Id,[self getSpriteForBody:model],model.die,model.sensor);
     
     body->SetUserData(detail);
+    body->SetAngularVelocity(model.angularVelocity);
     
     return body;
 }
@@ -683,8 +767,10 @@ public:
     
     if (callback.m_fixture)
     {
+        b2Body* body = callback.m_fixture->GetBody();
+        
         //if start location is higher than winsize/2 -- return
-        if(m_startLocation.y >= 0.35*m_windowSize.height)
+        if(body == m_player && m_startLocation.y >= 0.35*m_windowSize.height)
         {
             //need to show a message that the ball can'tbe touched
             //at this height
@@ -700,9 +786,6 @@ public:
             return;
         }
         
-        m_playerStuckCount = 0;
-        
-        b2Body* body = callback.m_fixture->GetBody();
         b2MouseJointDef md;
         md.bodyA = m_groundBody;
         md.bodyB = body;
@@ -710,6 +793,8 @@ public:
         md.maxForce = 5000.0f * body->GetMass();
         m_mouseJoint = (b2MouseJoint*)m_world->CreateJoint(&md);
         body->SetAwake(true);
+        
+        m_playerStuckCount = 0;
     }
 }
 

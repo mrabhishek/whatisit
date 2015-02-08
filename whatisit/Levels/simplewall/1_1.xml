@@ -3,7 +3,7 @@
         <environment gravity="-10" />
     </layer>
     <layer name="objects">
-        <target shape="circle" x="0.689783" y="0.777529" points="0" type="kinematic" die="1" sensor="0" bonus="0" killerwall="0" />
-        <player shape="circle" x="0.44496" y="0.073125" points="0" type="dynamic" die="0" sensor="0" bonus="0" killerwall="0" />
+        <target id = "1" shape="circle" x="0.689783" y="0.777529" points="0" type="kinematic" die="1" sensor="0" bonus="0" killerwall="0" />
+        <player id = "2" shape="circle" x="0.44496" y="0.073125" points="0" type="dynamic" die="0" sensor="0" bonus="0" killerwall="0" />
     </layer>
 </map>

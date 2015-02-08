@@ -46,22 +46,24 @@
     for (int i =0; i < kTotalNumberOfEpisodes; i++) {
         // Reset Button
         CCMenuItemImage *level = [CCMenuItemImage itemWithNormalImage:@"next.png" selectedImage:@"next.png" block:^(id sender){
-            [self.delegate didPressEpisode:self:i];
+            [self.delegate didPressEpisode:self:i+1];
         }];
         
         [levels addObject:level];
     }
     
     //Main menu
-	CCMenuItemImage *mainMenu = [CCMenuItemImage itemWithNormalImage:@"menu.png" selectedImage:@"menu.png" block:^(id sender){
-        [self.delegate didPressMainMenuFromEpisodeSelectMenu:self];
-	}];
+//	CCMenuItemImage *mainMenu = [CCMenuItemImage itemWithNormalImage:@"menu.png" selectedImage:@"menu.png" block:^(id sender){
+//        [self.delegate didPressMainMenuFromEpisodeSelectMenu:self];
+//	}];
     
-    [levels addObject:mainMenu];
+    //[levels addObject:mainMenu];
     
 	CCMenu *menu = [CCMenu menuWithArray:levels];
+    [menu alignItemsVertically];
+    //[menu alignItemsInRows:[NSNumber numberWithInt:5], menu, nil];
     
-	[menu alignItemsInColumns:[NSNumber numberWithInt:2],[NSNumber numberWithInt:1], nil];
+	//[menu alignItemsInColumns:[NSNumber numberWithInt:2],[NSNumber numberWithInt:1], nil];
 	
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	[menu setPosition:ccp( size.width/2, 0.33*size.height)];

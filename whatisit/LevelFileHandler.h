@@ -11,13 +11,14 @@
 #import "box2DHelper.h"
 #import "ApplicationConstants.h"
 
-@class Player, Target,Obstacle;
+@class Player, Target,Obstacle,RevoluteJoint;
 
 @interface LevelFileHandler : NSObject
 
 @property (retain) Player* player;
 @property (retain) Target* target;
 @property (retain) NSMutableArray* obstacles;
+@property (retain) NSMutableArray* revoluteJoints;
 
 +(CGPoint) levelPositionToScreenPosition:(CGPoint) position;
 - (id)initWithFileName:(NSString*) fileName;

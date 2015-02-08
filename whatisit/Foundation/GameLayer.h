@@ -20,6 +20,7 @@
 #import "Player.h"
 #import "Target.h"
 #import "Obstacle.h"
+#import "RevoluteJoint.h"
 #import "MyContactListener.h"
 
 

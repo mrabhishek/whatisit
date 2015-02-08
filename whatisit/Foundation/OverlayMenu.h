@@ -14,7 +14,7 @@
 -(void) didPressResume :(id)sender;
 -(void) didPressRestart:(id)sender;
 -(void) didPressAppStore:(id)sender;
--(void) didPressMainMenu: (id)sender;
+-(void) didPressMenuFromOverlayMenu: (id)sender;
 
 @end
 

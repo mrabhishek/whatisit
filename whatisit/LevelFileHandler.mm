@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "Target.h"
 #import "Obstacle.h"
+#import "RevoluteJoint.h"
 #import "GDataXMLNode.h"
 #import "FileHelper.h"
 
@@ -80,6 +81,7 @@
         float x = [playerData attributeForName:@"x"].stringValue.floatValue;
         float y = [playerData attributeForName:@"y"].stringValue.floatValue;
         
+        player.Id = [playerData attributeForName:@"id"].stringValue.intValue;
         player.Position = [LevelFileHandler levelPositionToScreenPosition:CGPointMake(x, y)];
         
         player.shape = [box2DHelper shapeFromShapeString:[playerData attributeForName:@"shape"].stringValue];
@@ -99,6 +101,7 @@
         float xt = [targetData attributeForName:@"x"].stringValue.floatValue;
         float yt = [targetData attributeForName:@"y"].stringValue.floatValue;
         
+        target.Id = [targetData attributeForName:@"id"].stringValue.intValue;
         target.Position = [LevelFileHandler levelPositionToScreenPosition:CGPointMake(xt, yt)];
         
         target.shape = [box2DHelper shapeFromShapeString:[targetData attributeForName:@"shape"].stringValue];
@@ -106,6 +109,7 @@
         target.bodyType = [box2DHelper bodyTypeFrombodyTypeString:[targetData attributeForName:@"type"].stringValue];
         
         target.die = [targetData attributeForName:@"die"].stringValue.boolValue;
+        target.angularVelocity = [targetData attributeForName:@"angvel"].stringValue.intValue;
         
         self.target = target;
         
@@ -121,6 +125,7 @@
             float x = [object attributeForName:@"x"].stringValue.floatValue;
             float y = [object attributeForName:@"y"].stringValue.floatValue;
             
+            obstacle.Id = [object attributeForName:@"id"].stringValue.intValue;
             obstacle.Position = [LevelFileHandler levelPositionToScreenPosition:CGPointMake(x, y)];
             
             obstacle.shape = [box2DHelper shapeFromShapeString:[object attributeForName:@"shape"].stringValue];
@@ -151,8 +156,24 @@
             if(obstacle.movingy) velx = 0;
             
             obstacle.vel = b2Vec2(velx, vely);
+            obstacle.angularVelocity = [object attributeForName:@"angvel"].stringValue.intValue;
             
             [self.obstacles addObject:obstacle];
+        }
+        
+        self.revoluteJoints = [NSMutableArray arrayWithCapacity:kSupportedJoints];
+        
+        NSArray* jointsArray = [objectLayer elementsForName:@"joint"];
+        
+        for(GDataXMLElement* object in jointsArray)
+        {
+            RevoluteJoint* joint = [[RevoluteJoint alloc] init];
+            joint.Id = [object attributeForName:@"id"].stringValue.intValue;
+            joint.jointType = [object attributeForName:@"type"].stringValue;
+            joint.IdBodyA = [object attributeForName:@"ida"].stringValue.intValue;
+            joint.IdBodyB = [object attributeForName:@"idb"].stringValue.intValue;
+            
+            [self.revoluteJoints addObject:joint];
         }
         
     }

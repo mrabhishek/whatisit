@@ -41,5 +41,6 @@
 -(void) resetGameBodies;
 -(void)ShowMessageAtPositionForTime:(NSString*)str :(CGPoint) position :(int)forTime :(int) fontSize;
 -(void) CleanMessage;
+-(void)levelCompletionUpdate:(id)sender;
 
 @end

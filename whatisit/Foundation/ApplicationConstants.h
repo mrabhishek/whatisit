@@ -23,13 +23,14 @@
 #define TAG_GAME_LAYER_TEXT 501
 #define TAG_GAME_CONTROLLER_TEXT 601
 #define TAG_EPISODE_SELECT_MENU 701
-#define TAG_LEVEL_SELECT_MENU = 801
+#define TAG_LEVEL_SELECT_MENU 801
 
 //Fonts to use
 #define kFontNormal [UIFont fontWithName:@"comic andy" size:32.0] //change values
 #define kFontBig [UIFont fontWithName:@"comic andy" size:60.0]//change values
 #define kFontName @"comic andy"//change values
 #define kSupportedObstacles 20
+#define kSupportedJoints 20
 #define kCircleRadius 25
 #define kPlusWidth 10
 #define kPlusHeight 40
@@ -40,7 +41,7 @@
 #define kVerticalWallWidth 10
 #define kHorizontalSideWallHeight 2.5
 #define kVerticalSideWallWidth 2.5 //1/4 of the image box
-#define kTotalNumberOfEpisodes 3 //go on adding episodes
+#define kTotalNumberOfEpisodes 4 //go on adding episodes
 #define kLevelsPerEpisode 5
 #define kFontFileName @"Comic_Andy.ttf"
 #define iPadMultiplier 1 //change this value 

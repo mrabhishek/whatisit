@@ -58,7 +58,7 @@
     
     //Main menu
 	CCMenuItemImage *mainMenu = [CCMenuItemImage itemWithNormalImage:@"mainmenu.png" selectedImage:@"mainmenu.png" block:^(id sender){
-        [self.delegate didPressMainMenu:self];
+        [self.delegate didPressMenuFromOverlayMenu:self];
 	}];
     
     
