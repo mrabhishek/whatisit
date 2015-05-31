@@ -292,7 +292,17 @@ public:
         
         b2FixtureDef fd;
         fd.shape = &shape;
-        fd.density = 1.0f;
+        
+        
+        //fd.SetGravityScale(0);
+        
+        //quick hack to reduce the fixture's density to zero
+        //this way the angular velocity will remain constant.
+        //density value should be explicitly passed
+        //as 0 for this to happen.
+        //default density is still 1.
+        
+        fd.density = target.density;
         
         b2BodyDef bd;
         bd.type = target.bodyType;
@@ -314,6 +324,7 @@ public:
         body->SetAngularVelocity(target.angularVelocity);
         
         m_target = body;
+        m_target->SetGravityScale(0);
     }
     //m_target = [self setupbox2DBody:target];
 }

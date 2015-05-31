@@ -27,6 +27,7 @@
 @property CGPoint to;
 @property b2Vec2 vel;
 @property int angularVelocity;
+@property float density;
 
 
 @end

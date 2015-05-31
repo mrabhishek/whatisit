@@ -111,7 +111,16 @@
         target.die = [targetData attributeForName:@"die"].stringValue.boolValue;
         target.angularVelocity = [targetData attributeForName:@"angvel"].stringValue.intValue;
         
+        //NSLog(@"%@",[targetData attributeForName:@"density"]);
+       
+        
+        if([targetData attributeForName:@"density"].stringValue != NULL)
+        {
+            target.density = [targetData attributeForName:@"density"].stringValue.floatValue;
+        }
+        
         self.target = target;
+        NSLog(@"%f",target.density);
         
         //load other objectLayer data
         

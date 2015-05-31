@@ -13,7 +13,7 @@
 -(id)init {
     self = [super init];
     if (self) {
-        
+        self.density = 1.0f;
     }
     return self;
 }
