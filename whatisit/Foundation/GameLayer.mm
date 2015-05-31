@@ -362,6 +362,10 @@ public:
         }
         revJointDef.collideConnected = joint.collideConnected;
     }
+    revJointDef.referenceAngle = 0;
+    revJointDef.enableLimit = joint.EnableLimit;
+    revJointDef.lowerAngle = joint.LowerAngle * DEGTORAD;
+    revJointDef.upperAngle =  joint.HigherAngle * DEGTORAD;
     
     return (b2RevoluteJoint*)m_world->CreateJoint(&revJointDef);
 }

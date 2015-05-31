@@ -181,6 +181,9 @@
             joint.jointType = [object attributeForName:@"type"].stringValue;
             joint.IdBodyA = [object attributeForName:@"ida"].stringValue.intValue;
             joint.IdBodyB = [object attributeForName:@"idb"].stringValue.intValue;
+            joint.EnableLimit = [object attributeForName:@"limit"].stringValue.boolValue;
+            joint.LowerAngle = [object attributeForName:@"lowerangle"].stringValue.intValue;
+            joint.HigherAngle = [object attributeForName:@"higherangle"].stringValue.intValue;
             
             [self.revoluteJoints addObject:joint];
         }

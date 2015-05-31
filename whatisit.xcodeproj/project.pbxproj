@@ -129,6 +129,8 @@
 		FA4363DF1879311200544722 /* Target.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363DE1879311200544722 /* Target.mm */; };
 		FA4363E31879321200544722 /* LevelFileHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363E21879321200544722 /* LevelFileHandler.mm */; };
 		FA4363E6187946E900544722 /* AbstractModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4363E5187946E900544722 /* AbstractModel.mm */; };
+		FA4BBEC71B1BBAD6008933FD /* 4_1.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA4BBEC61B1BBAD6008933FD /* 4_1.xml */; };
+		FA4BBEC91B1BBB22008933FD /* 4_2.xml in Resources */ = {isa = PBXBuildFile; fileRef = FA4BBEC81B1BBB22008933FD /* 4_2.xml */; };
 		FA57318E18E9415B00AB3734 /* vwall_full-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = FA57318D18E9415B00AB3734 /* vwall_full-hd.png */; };
 		FA5C39C619B2149500E67CCE /* vwall_full-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5C39C119B2149500E67CCE /* vwall_full-hd.png */; };
 		FA5C39C719B2149500E67CCE /* vwall_half_killerwall-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = FA5C39C219B2149500E67CCE /* vwall_half_killerwall-hd.png */; };
@@ -276,7 +278,6 @@
 		FAECD8AA196875C000983192 /* EpisodeSelectMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAECD8A9196875C000983192 /* EpisodeSelectMenu.mm */; };
 		FAECD8AD196B97FB00983192 /* AbstractJoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAECD8AC196B97FB00983192 /* AbstractJoint.mm */; };
 		FAECD8B0196B989200983192 /* RevoluteJoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAECD8AF196B989100983192 /* RevoluteJoint.mm */; };
-		FAECD8B5196BA42D00983192 /* 4_1.xml in Resources */ = {isa = PBXBuildFile; fileRef = FAECD8B4196BA42D00983192 /* 4_1.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -545,6 +546,8 @@
 		FA4363E11879321200544722 /* LevelFileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelFileHandler.h; sourceTree = "<group>"; };
 		FA4363E21879321200544722 /* LevelFileHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelFileHandler.mm; sourceTree = "<group>"; };
 		FA4363E5187946E900544722 /* AbstractModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractModel.mm; sourceTree = "<group>"; };
+		FA4BBEC61B1BBAD6008933FD /* 4_1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 4_1.xml; sourceTree = "<group>"; };
+		FA4BBEC81B1BBB22008933FD /* 4_2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 4_2.xml; sourceTree = "<group>"; };
 		FA57318D18E9415B00AB3734 /* vwall_full-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vwall_full-hd.png"; sourceTree = "<group>"; };
 		FA5C39C119B2149500E67CCE /* vwall_full-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vwall_full-hd.png"; sourceTree = "<group>"; };
 		FA5C39C219B2149500E67CCE /* vwall_half_killerwall-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vwall_half_killerwall-hd.png"; sourceTree = "<group>"; };
@@ -782,7 +785,6 @@
 		FAECD8AC196B97FB00983192 /* AbstractJoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AbstractJoint.mm; sourceTree = "<group>"; };
 		FAECD8AE196B989100983192 /* RevoluteJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevoluteJoint.h; sourceTree = "<group>"; };
 		FAECD8AF196B989100983192 /* RevoluteJoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RevoluteJoint.mm; sourceTree = "<group>"; };
-		FAECD8B4196BA42D00983192 /* 4_1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 4_1.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1178,6 +1180,15 @@
 			name = LevelEditor;
 			sourceTree = "<group>";
 		};
+		FA4BBEC51B1BBAD6008933FD /* jointswall */ = {
+			isa = PBXGroup;
+			children = (
+				FA4BBEC61B1BBAD6008933FD /* 4_1.xml */,
+				FA4BBEC81B1BBB22008933FD /* 4_2.xml */,
+			);
+			path = jointswall;
+			sourceTree = "<group>";
+		};
 		FA7A069118F2130D0051F3E7 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1527,7 +1538,7 @@
 		FA9E93A5183340FA0097EBDB /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				FAECD8B1196BA19800983192 /* Joints */,
+				FA4BBEC51B1BBAD6008933FD /* jointswall */,
 				FAECD8801967C59400983192 /* killerwall */,
 				FAECD8831967C59400983192 /* movingwall */,
 				FAECD8861967C59400983192 /* simplewall */,
@@ -1618,14 +1629,6 @@
 			path = simplewall;
 			sourceTree = "<group>";
 		};
-		FAECD8B1196BA19800983192 /* Joints */ = {
-			isa = PBXGroup;
-			children = (
-				FAECD8B4196BA42D00983192 /* 4_1.xml */,
-			);
-			name = Joints;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1687,6 +1690,7 @@
 				FAECD8961967C59400983192 /* 1_3.xml in Resources */,
 				FA9E915918332F790097EBDB /* fps_images-hd.png in Resources */,
 				FA7A06A518F250FC0051F3E7 /* menu-hd.png in Resources */,
+				FA4BBEC91B1BBB22008933FD /* 4_2.xml in Resources */,
 				FA9E915B18332F790097EBDB /* fps_images-ipadhd.png in Resources */,
 				FA7A06B118F2666D0051F3E7 /* hudmenu-hd.png in Resources */,
 				FAECD89B1967C59400983192 /* 2_3.xml in Resources */,
@@ -1695,7 +1699,6 @@
 				FA18C6C51B1A61E400A5A510 /* hwall_half-hd.png in Resources */,
 				FAECD8A21967C8B000983192 /* 3_3.xml in Resources */,
 				FA9E915D18332F790097EBDB /* Icon-72.png in Resources */,
-				FAECD8B5196BA42D00983192 /* 4_1.xml in Resources */,
 				FA9E915F18332F790097EBDB /* Icon-Small-50.png in Resources */,
 				FAECD8971967C59400983192 /* 1_4.xml in Resources */,
 				FAECD8A11967C8B000983192 /* 3_2.xml in Resources */,
@@ -1707,6 +1710,7 @@
 				FA9E916118332F790097EBDB /* Icon-Small.png in Resources */,
 				FA9E916318332F790097EBDB /* Icon-Small@2x.png in Resources */,
 				FA5C39DC19B2154600E67CCE /* appstore-hd.png in Resources */,
+				FA4BBEC71B1BBAD6008933FD /* 4_1.xml in Resources */,
 				FAECD85119665EE400983192 /* hwall_quarter-hd.png in Resources */,
 				FAECD8951967C59400983192 /* 1_2.xml in Resources */,
 				FAECD85319665EE400983192 /* vwall_quarter-hd.png in Resources */,

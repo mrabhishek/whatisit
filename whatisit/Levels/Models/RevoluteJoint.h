@@ -13,5 +13,8 @@
 
 @property int IdBodyA;
 @property int IdBodyB;
+@property bool EnableLimit;
+@property int LowerAngle;
+@property int HigherAngle;
 
 @end

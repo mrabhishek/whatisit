@@ -1,0 +1,11 @@
+<map>
+    <layer name="settings">
+        <environment gravity="-10" />
+    </layer>
+    <layer name="objects">
+        <object id = "1" shape="plus_small" x="0.398246" y="0.609688" points="0" type="kinematic" die="1" sensor="1" bonus="1" killerwall="0" />
+        <target id = "2" shape="circle" x="0.298246" y="0.409688" points="0" type="dynamic" die="1" sensor="0" bonus="0" killerwall="0" angvel ="200" density="0.05"/>
+        <player id = "3" shape="circle" x="0.738514" y="0.0732259" points="0" type="dynamic" die="0" sensor="0" bonus="0" killerwall="0" />
+        <joint id ="4" type="revolute" ida="1" idb="2" limit="1" lowerangle="-45" higherangle="90"/>
+    </layer>
+</map>
