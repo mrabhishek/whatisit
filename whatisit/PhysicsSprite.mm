@@ -36,9 +36,9 @@
 	float x = pos.x * PTM_RATIO;
 	float y = pos.y * PTM_RATIO;
 	
-	if ( ignoreAnchorPointForPosition_ ) {
-		x += anchorPointInPoints_.x;
-		y += anchorPointInPoints_.y;
+	if ( _ignoreAnchorPointForPosition ) {
+		x += _anchorPointInPoints.x;
+		y += _anchorPointInPoints.y;
 	}
 	
 	// Make matrix
@@ -46,17 +46,17 @@
 	float c = cosf(radians);
 	float s = sinf(radians);
 	
-	if( ! CGPointEqualToPoint(anchorPointInPoints_, CGPointZero) ){
-		x += c*-anchorPointInPoints_.x + -s*-anchorPointInPoints_.y;
-		y += s*-anchorPointInPoints_.x + c*-anchorPointInPoints_.y;
+	if( ! CGPointEqualToPoint(_anchorPointInPoints, CGPointZero) ){
+		x += c*-_anchorPointInPoints.x + -s*-_anchorPointInPoints.y;
+		y += s*-_anchorPointInPoints.x + c*-_anchorPointInPoints.y;
 	}
 	
 	// Rot, Translate Matrix
-	transform_ = CGAffineTransformMake( c,  s,
+	_transform = CGAffineTransformMake( c,  s,
 									   -s,	c,
 									   x,	y );	
 	
-	return transform_;
+	return _transform;
 }
 
 -(void) dealloc
